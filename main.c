@@ -39,6 +39,13 @@
 
 #include "cybsp.h"
 #include "cy_utils.h"
+#include <stdio.h>
+#include <stdint.h>
+
+
+//Forwarded functions
+int16_t get_acceleration(void);
+
 
 int main(void)
 {
@@ -51,9 +58,15 @@ int main(void)
         CY_ASSERT(0);
     }
 
-    for (;;)
-    {
-    }
+    while (1) {
+        int16_t z = get_acceleration();
+        if (z < -8000) {        // about -0.5 g
+            printf("Flipped!\n");
+        }
+        XMC_Delay(100);
+    }//while(1)
+
+
 }
 
 /* [] END OF FILE */
